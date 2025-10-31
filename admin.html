@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Griiffins Site</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="sticky top-0 z-10 w-full border-b border-neutral-800/50 bg-neutral-900/70 backdrop-blur-lg">
+        <div class="max-w-4xl mx-auto px-4 sm:px-8 py-4">
+            <h1 class="text-xl font-semibold text-white">Contact Form Messages</h1>
+            <p class="text-sm text-neutral-400">Viewing submissions for <span class="font-medium text-neutral-300">my-portfolio-form-30a55</span></p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-8 pt-10 pb-16">
+        
+        <div id="loadingState" class="flex flex-col items-center justify-center py-20">
+            <svg class="animate-spin h-8 w-8 text-neutral-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p class="mt-4 text-neutral-400">Loading messages...</p>
+        </div>
+
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-20 border border-dashed border-neutral-700 rounded-lg">
+            <svg class="h-12 w-12 text-neutral-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.023.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z" />
+            </svg>
+            <p class="mt-4 text-neutral-400">No messages yet.</p>
+            <p class="text-sm text-neutral-500">New submissions from your portfolio will appear here.</p>
+        </div>
+
+        <div id="messageList" class="space-y-4">
+            <!-- Messages will be injected here by JavaScript -->
+        </div>
+
+    </main>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgA0-VUMArhpPW6mp407cfKjIRsZVZu4Q",
+            authDomain: "my-portfolio-form-30a55.firebaseapp.com",
+            projectId: "my-portfolio-form-30a55",
+            storageBucket: "my-portfolio-form-30a55.firebasestorage.app",
+            messagingSenderId: "431297054499",
+            appId: "1:431297054499:web:056b906df427ed626e2e96",
+            measurementId: "G-RQHX865D2E"
+        };
+        
+        const loadingState = document.getElementById('loadingState');
+        const emptyState = document.getElementById('emptyState');
+        const messageList = document.getElementById('messageList');
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            
+            const submissionsColRef = collection(db, "contactSubmissions");
+            const q = query(submissionsColRef, orderBy("createdAt", "desc"));
+
+            onSnapshot(q, (snapshot) => {
+                loadingState.classList.add('hidden');
+                
+                if (snapshot.empty) {
+                    emptyState.classList.remove('hidden');
+                    messageList.innerHTML = ''; 
+                } else {
+                    emptyState.classList.add('hidden');
+                    let messagesHTML = '';
+                    snapshot.docs.forEach(doc => {
+                        const data = doc.data();
+                        const id = doc.id;
+                        const timestamp = data.createdAt?.toDate ? data.createdAt.toDate().toLocaleString() : 'Just now';
+                        
+                        messagesHTML += `
+                            <div class="bg-neutral-900 border border-neutral-800 rounded-lg shadow-md overflow-hidden">
+                                <div class="p-5">
+                                    <div class="flex justify-between items-start mb-3">
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-white">${escapeHTML(data.name)}</h3>
+                                            <a href="mailto:${escapeHTML(data.email)}" class="text-sm text-sky-400 hover:text-sky-300">${escapeHTML(data.email)}</a>
+                                        </div>
+                                        <span class="text-xs text-neutral-500 whitespace-nowrap ml-4">${timestamp}</span>
+                                    </div>
+                                    <p class="text-neutral-300 leading-relaxed whitespace-pre-wrap">${escapeHTML(data.message)}</p>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    messageList.innerHTML = messagesHTML;
+                }
+            }, (error) => {
+                console.error("Error listening to Firestore: ", error);
+                loadingState.innerHTML = '<p class="text-red-500">Error: Could not load messages. Check console and Firebase rules.</p>';
+            });
+
+        } catch (error) {
+            console.error("Firebase Initialization Error:", error);
+            loadingState.innerHTML = '<p class="text-red-500">Error: Could not connect to Firebase. Check console.</p>';
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>"']/g, function(m) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[m];
+            });
+        }
+    </script>
+</body>
+</html>
+

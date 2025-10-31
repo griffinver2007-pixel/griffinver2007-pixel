@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Griiffins Site</title>
+    <meta name="description" content="Portfolio for Griffin Ver, a student at Fr. Agnel College, showcasing projects, skills, and bio.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        
+        .glass-card {
+            background-color: rgba(23, 23, 23, 0.6); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 51, 51, 0.5);
+            border-radius: 1.5rem; 
+        }
+
+        .glass-nav {
+            background-color: rgba(10, 10, 10, 0.7); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(51, 51, 51, 0.5);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        section[id] {
+            scroll-margin-top: 100px;
+        }
+
+        .glow-card {
+            background-color: #191919;
+            border-radius: 1.5rem; 
+            border: 1px solid #333;
+            position: relative;
+            
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glow-card::before {
+            content: "";
+            position: absolute;
+            left: var(--mouse-x, -1000px);
+            top: var(--mouse-y, -1000px);
+            width: 400px; 
+            height: 400px; 
+            background: radial-gradient(circle at center, var(--glow-color) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none; 
+        }
+
+        .glow-card:hover::before {
+            opacity: 0.15; 
+        }
+        
+        .glow-card:hover {
+             border-color: rgba(255, 255, 255, 0.1);
+             
+             box-shadow: 0 0 40px 20px var(--glow-color-faded);
+        }
+
+        .text-bloom {
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .fade-in.delay-1 { transition-delay: 0.1s; }
+        .fade-in.delay-2 { transition-delay: 0.2s; }
+        .fade-in.delay-3 { transition-delay: 0.3s; }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        neutral: {
+                            50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4', 400: '#a3a3a3',
+                            500: '#737373', 600: '#525252', 700: '#404040', 800: '#262626', 900: '#171717', 950: '#0a0a0a',
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="antialiased">
+
+    <nav class="glass-nav sticky top-0 z-50 w-full px-4 sm:px-8 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col">
+                <a href="#" class="font-semibold text-lg text-white">Griffin Ver</a>
+                <span class="text-sm text-neutral-400">Student at Fr. Agnel College</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#work" class="text-neutral-300 hover:text-white transition-colors">Portfolio</a>
+                <a href="#info" class="text-neutral-300 hover:text-white transition-colors">About</a>
+                <a href="#contact" class="text-neutral-300 hover:text-white transition-colors">Contact</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="text-sm text-neutral-300 hover:text-white transition-colors hidden">
+                    Resume
+                    <span class="inline-block align-middle ml-1">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    </span>
+                </a>
+                <a href="https://www.linkedin.com/in/griffin-ver-437550385/" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </a>
+                <a href="https://github.com/griffinver2007-pixel" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.4a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=griffinver2007@gmail.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </a>
+            </div>
+        </div>
+        <div class="md:hidden flex justify-center space-x-8 pt-4 mt-2 border-t border-neutral-700/50">
+            <a href="#work" class="text-neutral-300 hover:text-white transition-colors">Portfolio</a>
+            <a href="#info" class="text-neutral-300 hover:text-white transition-colors">About</a>
+            <a href="#contact" class="text-neutral-300 hover:text-white transition-colors">Contact</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-8 pt-20 pb-16">
+
+        <header class="h-[60vh] min-h-[400px] flex flex-col justify-center items-center text-center relative mb-16">
+            <div class="w-full max-w-4xl p-8 sm:p-12 glass-card">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-semibold text-white leading-tight text-bloom">
+                    I craft products, interactions & stories.
+                </h1>
+                <p class="text-lg sm:text-xl text-neutral-300 mt-6 max-w-2xl mx-auto">
+                    Hi, I'm <span class="text-white">Griffin Ver</span>, a student at <span class="text-white">Fr. Agnel College</span>.
+                    <br class="hidden sm:block">
+                    Passionate about building cool things.
+                </p>
+            </div>
+            <a href="#work" class="absolute bottom-0 left-1/2 -translate-x-1/2 text-neutral-500 hover:text-white transition-transform hover:translate-y-1">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+            </a>
+        </header>
+
+        <section id="work" class="space-y-8">
+            <h2 class="text-3xl font-medium text-white mb-6 text-bloom fade-in">Portfolio</h2>
+            
+            <a href="#!" class="block w-full p-8 glow-card transition-all fade-in" style="--glow-color: hsl(200, 100%, 50%); --glow-color-faded: hsla(200, 100%, 50%, 0.1);">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-start">
+                    <div>
+                        <h3 class="text-2xl font-medium text-white text-bloom">More Projects Coming Soon...</h3>
+                        <p class="text-neutral-400 mt-1">I'm currently working on new projects. Please check back later!</p>
+                    </div>
+                </div>
+            </a>
+            
+        </section>
+
+        <section id="info" class="mt-32 fade-in">
+            <p class="text-sm font-medium text-neutral-400 tracking-wider uppercase">About Me</p>
+            <h2 class="text-3xl sm:text-4xl font-medium text-white mt-4 text-bloom">
+                I'm passionate about creating beautiful products that empower people.
+            </h2>
+            
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-8">
+                    <div class="rounded-2xl overflow-hidden bg-neutral-800">
+                        <img src="https://i.postimg.cc/sXzfcKjv/Whats-App-Image-2025-10-31-at-22-11-03-6d5e8ac2.jpg" alt="A photo of Griffin Ver" class="w-full h-auto object-cover">
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-medium text-white">My Background</h4>
+                        <p class="text-neutral-300 mt-3 leading-relaxed">
+                            I am a passionate and driven student, constantly seeking to learn and grow. I thrive on challenges and am always looking for opportunities to apply my knowledge in practical, real-world scenarios.
+                            <br><br>
+                            My enthusiasm for technology is matched by my dedication to personal development, including being a gym enthusiast.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="space-y-8">
+                     <div>
+                        <h4 class="text-xl font-medium text-white">Hobbies & Interests</h4>
+                        <p class="text-neutral-300 mt-3 leading-relaxed">
+                            When I'm not studying or working on projects, I love:
+                        </p>
+                        <ul class="list-disc list-inside text-neutral-300 mt-3 space-y-1">
+                            <li>Photography</li>
+                            <li>Travelling</li>
+                            <li>Coding & Gaming</li>
+                            <li>Learning new languages</li>
+                        </ul>
+                    </div>
+                     <div>
+                        <h4 class="text-xl font-medium text-white">Skills</h4>
+                        <p class="text-neutral-400 mt-3">Here are some of the technologies I'm comfortable with:</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">Python</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">C++</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">C</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">HTML</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">Tailwind CSS</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">React</span>
+                            <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">Node.js</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-medium text-white">AI Recruiter</h4>
+                        <p class="text-neutral-400 mt-3">Curious about my fit for a role? Click the button to have AI generate interview questions based on my profile.</p>
+                        <button id="askAIButton" class="mt-4 bg-neutral-700/50 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-neutral-700 transition-colors inline-flex items-center">
+                            <svg id="askAIButtonSpinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span id="askAIButtonText">Ask AI Recruiter</span>
+                        </button>
+                        <div id="aiResponse" class="mt-4 p-4 bg-neutral-800/50 border border-neutral-700 rounded-lg text-neutral-300 text-sm leading-relaxed hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-24">
+                <p class="text-3xl font-medium text-white text-bloom">Thanks for stopping by!</p>
+                <p class="text-lg text-neutral-400 mt-2">— Griffin Ver</p>
+            </div>
+        </section>
+
+        <section id="contact" class="mt-32 fade-in">
+            <h2 class="text-3xl sm:text-4xl font-medium text-white text-bloom">Get in Touch</h2>
+            <p class="text-lg text-neutral-400 mt-4 max-w-2xl">
+                Have a question, an opportunity, or just want to chat? Feel free to send me a message.
+            </p>
+
+            <div class="my-6 p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
+                <h4 class="font-medium text-white">Need help drafting a message?</h4>
+                <p class="text-sm text-neutral-400 mt-1">Select a topic and let AI write a draft for you.</p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <button class="ai-draft-button text-xs bg-neutral-700 text-neutral-200 px-3 py-1.5 rounded-md hover:bg-neutral-600 transition-colors" data-prompt="Write a brief, professional message asking for a 'coffee chat' to learn more about my experience.">Coffee Chat Request</button>
+                    <button class="ai-draft-button text-xs bg-neutral-700 text-neutral-200 px-3 py-1.5 rounded-md hover:bg-neutral-600 transition-colors" data-prompt="Write a professional inquiry about potential internship or junior role opportunities.">Job Inquiry</button>
+                    <button class="ai-draft-button text-xs bg-neutral-700 text-neutral-200 px-3 py-1.5 rounded-md hover:bg-neutral-600 transition-colors" data-prompt="Write a friendly message asking to collaborate on a project.">Collaboration Pitch</button>
+                </div>
+                <div id="aiDraftSpinner" class="mt-3 text-neutral-400 text-sm items-center hidden">
+                    <svg class="animate-spin h-4 w-4 text-white inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating draft...
+                </div>
+            </div>
+
+            <form id="contactForm" class="mt-10 p-8 glow-card" style="--glow-color: hsl(180, 70%, 50%); --glow-color-faded: hsla(180, 70%, 50%, 0.1);">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-neutral-300 mb-2">Name</label>
+                        <input type="text" id="name" name="name" required class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500" placeholder="Your Name">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-neutral-300 mb-2">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500" placeholder="your.email@example.com">
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <label for="message" class="block text-sm font-medium text-neutral-300 mb-2">Message</label>
+                    <textarea id="message" name="message" rows="5" required class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-neutral-500" placeholder="Your message..."></textarea>
+                </div>
+                <div class="mt-8 text-right">
+                    <button type="submit" id="submitButton" class="bg-white text-black font-medium px-8 py-3 rounded-lg hover:bg-neutral-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-white">
+                        <span id="submitButtonText">Send Message</span>
+                        <svg id="submitSpinner" class="animate-spin h-5 w-5 text-black hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div id="formStatus" class="mt-4 text-center"></div>
+            </form>
+        </section>
+        
+    </main>
+
+    <footer class="border-t border-neutral-800/50 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-8 py-12 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center flex-wrap justify-center space-x-4 sm:space-x-6 mb-6 md:mb-0">
+                <a href="#work" class="text-sm text-neutral-400 hover:text-white transition-colors">Portfolio</a>
+                <a href="#info" class="text-sm text-neutral-400 hover:text-white transition-colors">About</a>
+                <a href="#contact" class="text-sm text-neutral-400 hover:text-white transition-colors">Contact</a>
+                <a href="https://www.linkedin.com/in/griffin-ver-437550385/" target="_blank" rel="noopener noreferrer" class="text-sm text-neutral-400 hover:text-white transition-colors">LinkedIn</a>
+                <a href="https://github.com/griffinver2007-pixel" target="_blank" rel="noopener noreferrer" class="text-sm text-neutral-400 hover:text-white transition-colors">GitHub</a>
+                <a href="#" target="_blank" rel="noopener noreferrer" class="text-sm text-neutral-400 hover:text-white transition-colors hidden">Resume</a>
+            </div>
+            <p class="text-sm text-neutral-500 mt-4 md:mt-0">
+                © 2025 Griffin Ver. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
+
+        let db;
+        const firebaseConfig = {
+            apiKey: "AIzaSyAgA0-VUMArhpPW6mp407cfKjIRsZVZu4Q",
+            authDomain: "my-portfolio-form-30a55.firebaseapp.com",
+            projectId: "my-portfolio-form-30a55",
+            storageBucket: "my-portfolio-form-30a55.firebasestorage.app",
+            messagingSenderId: "431297054499",
+            appId: "1:431297054499:web:056b906df427ed626e2e96",
+            measurementId: "G-RQHX865D2E"
+        };
+        
+        try {
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+            db = getFirestore(app);
+            console.log("Firebase Initialized. Project ID:", firebaseConfig.projectId);
+        } catch (error) {
+            console.error("Firebase Initialization Error:", error);
+            const formStatus = document.getElementById('formStatus');
+            if(formStatus) {
+                formStatus.textContent = "Error: Could not connect to database.";
+                formStatus.className = 'mt-4 text-center text-red-500';
+            }
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
+                }
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = {
+            threshold: 0.2,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        const glowCards = document.querySelectorAll('.glow-card');
+        glowCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        async function callGemini(prompt, systemPrompt = "") {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+            };
+            
+            if (systemPrompt) {
+                payload.systemInstruction = {
+                    parts: [{ text: systemPrompt }]
+                };
+            }
+
+            let response;
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429 || response.status >= 500) {
+                        await new Promise(resolve => setTimeout(resolve, delay * (2 ** i)));
+                        continue;
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.statusText}`);
+                    }
+                    
+                    break; 
+
+                } catch (error) {
+                    if (i === 4) { 
+                        console.error("Gemini API call failed:", error);
+                        return `An error occurred: ${error.message}`;
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay * (2 ** i)));
+                }
+            }
+            
+            if (!response) {
+                return "Sorry, the AI service is currently unavailable.";
+            }
+
+            try {
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0].text) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    if(result.promptFeedback) {
+                        console.warn("Prompt was blocked:", result.promptFeedback);
+                        return "Sorry, I can't respond to that. Please try a different topic.";
+                    }
+                    return "Sorry, I couldn't generate a response.";
+                }
+            } catch (jsonError) {
+                console.error("Failed to parse Gemini response:", jsonError);
+                return "An error occurred while processing the AI response.";
+            }
+        }
+        
+        const askAIButton = document.getElementById('askAIButton');
+        const aiResponseDiv = document.getElementById('aiResponse');
+        const askAIButtonSpinner = document.getElementById('askAIButtonSpinner');
+        const askAIButtonText = document.getElementById('askAIButtonText');
+        
+        if (askAIButton) {
+            askAIButton.addEventListener('click', async () => {
+                askAIButton.disabled = true;
+                askAIButtonText.textContent = 'Thinking...';
+                askAIButtonSpinner.classList.remove('hidden');
+                aiResponseDiv.classList.add('hidden');
+
+                const bio = `
+                    Name: Griffin Ver
+                    Role: Student at Fr. Agnel College
+                    Bio: Passionate and driven student, seeking to learn and grow. Thrives on challenges and practical, real-world scenarios.
+                    Hobbies: Photography, Travelling, Coding, Gaming, Learning languages, Gym enthusiast.
+                    Skills: Python, C++, C, HTML, JavaScript, Tailwind CSS, React, Node.js
+                `;
+                const systemPrompt = "You are a helpful AI assistant acting as a recruiter. Based on the user's profile, generate 3-4 insightful and relevant interview questions. Format the response as a simple, un-numbered list, with each question on a new line separated by a blank line.";
+                const userPrompt = `Here is a candidate's profile:\n\n${bio}\n\nGenerate 3-4 insightful interview questions for this candidate.`;
+                
+                const response = await callGemini(userPrompt, systemPrompt);
+                
+                aiResponseDiv.innerHTML = response.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+                aiResponseDiv.classList.remove('hidden');
+
+                askAIButton.disabled = false;
+                askAIButtonText.textContent = 'Ask AI Recruiter';
+                askAIButtonSpinner.classList.add('hidden');
+            });
+        }
+
+        const draftButtons = document.querySelectorAll('.ai-draft-button');
+        const messageTextarea = document.getElementById('message');
+        const nameInput = document.getElementById('name');
+        const aiDraftSpinner = document.getElementById('aiDraftSpinner');
+        
+        draftButtons.forEach(button => {
+            button.addEventListener('click', async () => {
+                const userPrompt = button.dataset.prompt;
+                const myName = "Griffin Ver";
+                const userName = nameInput.value ? `and my name is ${nameInput.value}` : "";
+                
+                const systemPrompt = `You are an AI assistant helping a user draft a message for a portfolio contact form. The user's name is ${myName}. The person writing the message is ${userName}. Keep the message concise, professional, and friendly. Do not include a subject line. Just provide the message body.`;
+
+                aiDraftSpinner.style.display = 'flex';
+                draftButtons.forEach(b => b.disabled = true);
+                
+                const response = await callGemini(userPrompt, systemPrompt);
+                
+                messageTextarea.value = response;
+                messageTextarea.style.height = 'auto';
+                messageTextarea.style.height = (messageTextarea.scrollHeight) + 'px';
+
+                aiDraftSpinner.style.display = 'none';
+                draftButtons.forEach(b => b.disabled = false);
+            });
+        });
+        
+        const contactForm = document.getElementById('contactForm');
+        const submitButton = document.getElementById('submitButton');
+        const submitButtonText = document.getElementById('submitButtonText');
+        const submitSpinner = document.getElementById('submitSpinner');
+        const formStatus = document.getElementById('formStatus');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                if (!db) {
+                    console.error("Firebase not ready. Cannot submit form.");
+                    formStatus.textContent = "Error: Connection not ready. Please try again.";
+                    formStatus.className = 'mt-4 text-center text-red-500';
+                    return;
+                }
+
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                submitButton.disabled = true;
+                submitButtonText.classList.add('hidden');
+                submitSpinner.classList.remove('hidden');
+                formStatus.textContent = '';
+
+                try {
+                    const submissionsColRef = collection(db, "contactSubmissions");
+
+                    await addDoc(submissionsColRef, {
+                        name: name,
+                        email: email,
+                        message: message,
+                        createdAt: serverTimestamp() 
+                    });
+
+                    formStatus.textContent = "Success! Your message has been sent.";
+                    formStatus.className = 'mt-4 text-center text-green-500';
+                    contactForm.reset();
+                    messageTextarea.style.height = 'auto';
+
+
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    formStatus.textContent = "Error: Could not send message. Please try again.";
+                    formStatus.className = 'mt-4 text-center text-red-500';
+                } finally {
+                    submitButton.disabled = false;
+                    submitButtonText.classList.remove('hidden');
+                    submitSpinner.classList.add('hidden');
+                    
+                    setTimeout(() => {
+                        formStatus.textContent = '';
+                    }, 5000);
+                }
+            });
+        }
+        
+    </script>
+</body>
+</html>
+
