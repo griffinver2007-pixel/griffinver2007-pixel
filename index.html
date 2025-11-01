@@ -103,7 +103,7 @@
                     },
                     colors: {
                         neutral: {
-                            50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4', 400: '#a3a3a3',
+                            50: '#fafafa', 100: '#f5f5f5', 200: '#e5e5e5', 300: '#d4d4d4', 400: '#a3a3a4',
                             500: '#737373', 600: '#525252', 700: '#404040', 800: '#262626', 900: '#171717', 950: '#0a0a0a',
                         }
                     }
@@ -140,7 +140,7 @@
                 <a href="https://github.com/griffinver2007-pixel" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.4a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                 </a>
-                <a href="mailto:griffinver2007@gmail.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=griffinver2007@gmail.com" target="_blank" rel="noopener noreferrer" class="text-neutral-400 hover:text-white transition-colors">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                 </a>
             </div>
@@ -232,19 +232,6 @@
                             <span class="bg-neutral-800 text-neutral-300 text-sm font-medium px-3 py-1 rounded-full">Node.js</span>
                         </div>
                     </div>
-
-                    <div>
-                        <h4 class="text-xl font-medium text-white">AI Recruiter</h4>
-                        <p class="text-neutral-400 mt-3">Curious about my fit for a role? Click the button to have AI generate interview questions based on my profile.</p>
-                        <button id="askAIButton" class="mt-4 bg-neutral-700/50 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-neutral-700 transition-colors inline-flex items-center">
-                            <svg id="askAIButtonSpinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            <span id="askAIButtonText">Ask AI Recruiter</span>
-                        </button>
-                        <div id="aiResponse" class="mt-4 p-4 bg-neutral-800/50 border border-neutral-700 rounded-lg text-neutral-300 text-sm leading-relaxed hidden"></div>
-                    </div>
                 </div>
             </div>
 
@@ -259,23 +246,6 @@
             <p class="text-lg text-neutral-400 mt-4 max-w-2xl">
                 Have a question, an opportunity, or just want to chat? Feel free to send me a message.
             </p>
-
-            <div class="my-6 p-4 bg-neutral-900 border border-neutral-800 rounded-lg">
-                <h4 class="font-medium text-white">Need help drafting a message?</h4>
-                <p class="text-sm text-neutral-400 mt-1">Select a topic and let AI write a draft for you.</p>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <button class="ai-draft-button text-xs bg-neutral-700 text-neutral-200 px-3 py-1.5 rounded-md hover:bg-neutral-600 transition-colors" data-prompt="Write a brief, professional message asking for a 'coffee chat' to learn more about my experience.">Coffee Chat Request</button>
-                    <button class="ai-draft-button text-xs bg-neutral-700 text-neutral-200 px-3 py-1.5 rounded-md hover:bg-neutral-600 transition-colors" data-prompt="Write a professional inquiry about potential internship or junior role opportunities.">Job Inquiry</button>
-                    <button class="ai-draft-button text-xs bg-neutral-700 text-neutral-200 px-3 py-1.5 rounded-md hover:bg-neutral-600 transition-colors" data-prompt="Write a friendly message asking to collaborate on a project.">Collaboration Pitch</button>
-                </div>
-                <div id="aiDraftSpinner" class="mt-3 text-neutral-400 text-sm items-center hidden">
-                    <svg class="animate-spin h-4 w-4 text-white inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Generating draft...
-                </div>
-            </div>
 
             <form id="contactForm" class="mt-10 p-8 glow-card" style="--glow-color: hsl(180, 70%, 50%); --glow-color-faded: hsla(180, 70%, 50%, 0.1);">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -296,8 +266,8 @@
                     <button type="submit" id="submitButton" class="bg-white text-black font-medium px-8 py-3 rounded-lg hover:bg-neutral-200 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-neutral-900 focus:ring-white">
                         <span id="submitButtonText">Send Message</span>
                         <svg id="submitSpinner" class="animate-spin h-5 w-5 text-black hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
                     </button>
                 </div>
@@ -398,132 +368,6 @@
                 card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
-
-        async function callGemini(prompt, systemPrompt = "") {
-            const apiKey = ""; 
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: [{ parts: [{ text: prompt }] }],
-            };
-            
-            if (systemPrompt) {
-                payload.systemInstruction = {
-                    parts: [{ text: systemPrompt }]
-                };
-            }
-
-            let response;
-            let delay = 1000;
-            for (let i = 0; i < 5; i++) {
-                try {
-                    response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (response.status === 429 || response.status >= 500) {
-                        await new Promise(resolve => setTimeout(resolve, delay * (2 ** i)));
-                        continue;
-                    }
-
-                    if (!response.ok) {
-                        throw new Error(`API error: ${response.statusText}`);
-                    }
-                    
-                    break; 
-
-                } catch (error) {
-                    if (i === 4) { 
-                        console.error("Gemini API call failed:", error);
-                        return `An error occurred: ${error.message}`;
-                    }
-                    await new Promise(resolve => setTimeout(resolve, delay * (2 ** i)));
-                }
-            }
-            
-            if (!response) {
-                return "Sorry, the AI service is currently unavailable.";
-            }
-
-            try {
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates[0].content && result.candidates[0].content.parts[0].text) {
-                    return result.candidates[0].content.parts[0].text;
-                } else {
-                    if(result.promptFeedback) {
-                        console.warn("Prompt was blocked:", result.promptFeedback);
-                        return "Sorry, I can't respond to that. Please try a different topic.";
-                    }
-                    return "Sorry, I couldn't generate a response.";
-                }
-            } catch (jsonError) {
-                console.error("Failed to parse Gemini response:", jsonError);
-                return "An error occurred while processing the AI response.";
-            }
-        }
-        
-        const askAIButton = document.getElementById('askAIButton');
-        const aiResponseDiv = document.getElementById('aiResponse');
-        const askAIButtonSpinner = document.getElementById('askAIButtonSpinner');
-        const askAIButtonText = document.getElementById('askAIButtonText');
-        
-        if (askAIButton) {
-            askAIButton.addEventListener('click', async () => {
-                askAIButton.disabled = true;
-                askAIButtonText.textContent = 'Thinking...';
-                askAIButtonSpinner.classList.remove('hidden');
-                aiResponseDiv.classList.add('hidden');
-
-                const bio = `
-                    Name: Griffin Ver
-                    Role: Student at Fr. Agnel College
-                    Bio: Passionate and driven student, seeking to learn and grow. Thrives on challenges and practical, real-world scenarios.
-                    Hobbies: Photography, Travelling, Coding, Gaming, Learning languages, Gym enthusiast.
-                    Skills: Python, C++, C, HTML, JavaScript, Tailwind CSS, React, Node.js
-                `;
-                const systemPrompt = "You are a helpful AI assistant acting as a recruiter. Based on the user's profile, generate 3-4 insightful and relevant interview questions. Format the response as a simple, un-numbered list, with each question on a new line separated by a blank line.";
-                const userPrompt = `Here is a candidate's profile:\n\n${bio}\n\nGenerate 3-4 insightful interview questions for this candidate.`;
-                
-                const response = await callGemini(userPrompt, systemPrompt);
-                
-                aiResponseDiv.innerHTML = response.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
-                aiResponseDiv.classList.remove('hidden');
-
-                askAIButton.disabled = false;
-                askAIButtonText.textContent = 'Ask AI Recruiter';
-                askAIButtonSpinner.classList.add('hidden');
-            });
-        }
-
-        const draftButtons = document.querySelectorAll('.ai-draft-button');
-        const messageTextarea = document.getElementById('message');
-        const nameInput = document.getElementById('name');
-        const aiDraftSpinner = document.getElementById('aiDraftSpinner');
-        
-        draftButtons.forEach(button => {
-            button.addEventListener('click', async () => {
-                const userPrompt = button.dataset.prompt;
-                const myName = "Griffin Ver";
-                const userName = nameInput.value ? `and my name is ${nameInput.value}` : "";
-                
-                const systemPrompt = `You are an AI assistant helping a user draft a message for a portfolio contact form. The user's name is ${myName}. The person writing the message is ${userName}. Keep the message concise, professional, and friendly. Do not include a subject line. Just provide the message body.`;
-
-                aiDraftSpinner.style.display = 'flex';
-                draftButtons.forEach(b => b.disabled = true);
-                
-                const response = await callGemini(userPrompt, systemPrompt);
-                
-                messageTextarea.value = response;
-                messageTextarea.style.height = 'auto';
-                messageTextarea.style.height = (messageTextarea.scrollHeight) + 'px';
-
-                aiDraftSpinner.style.display = 'none';
-                draftButtons.forEach(b => b.disabled = false);
-            });
-        });
         
         const contactForm = document.getElementById('contactForm');
         const submitButton = document.getElementById('submitButton');
@@ -586,5 +430,4 @@
     </script>
 </body>
 </html>
-
 
